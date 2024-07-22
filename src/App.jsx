@@ -15,6 +15,19 @@ function App() {
 
   const handleUrlSubmit = (event) => {
     event.preventDefault();
+    if (!url){
+      return alert("Please Enter a URL!!")
+    }
+
+    if (!name){
+      return alert("Please set the name for QR Code!!")
+    }
+
+    if (!format){
+      return alert("Please Enter the proper foramt for the image like jpg jpeg or png!!")
+    }
+
+    
     setQrCodeValue(url);
   };
 
