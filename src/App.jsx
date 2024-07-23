@@ -15,17 +15,16 @@ function App() {
   const handleUrlSubmit = (event) => {
     event.preventDefault();
     if (!url) {
-      return alert("Please Enter a URL!!");
+      return alert("Please enter a URL.");
     }
 
     if (!name) {
-      return alert("Please set the name for QR Code!!");
+      return alert("Please enter a name for the QR code.");
     }
 
-    if (!format) {
-      return alert(
-        "Please Enter the proper foramt for the image like jpg jpeg or png!!"
-      );
+    const validFormats = ["png", "jpeg", "jpg"];
+    if (!validFormats.includes(format.toLowerCase())) {
+      return alert("Please enter a valid format (png, jpeg, jpg).");
     }
 
     setQrCodeValue(url);
@@ -50,11 +49,11 @@ function App() {
 
     // Convert canvas to a PNG URL
     const pngUrl = qrCanvas
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
+      .toDataURL(`image/${format}`)
+      .replace(`image/${format}`, "image/octet-stream");
 
     // Create a download link
-    let downloadLink = document.createElement("a");
+    const downloadLink = document.createElement("a");
     downloadLink.href = pngUrl;
     downloadLink.download = `${name}.${format}`;
     document.body.appendChild(downloadLink);
@@ -89,7 +88,7 @@ function App() {
         <input
           type="text"
           id="format_field"
-          placeholder="png jpeg jpg"
+          placeholder="png, jpeg, jpg"
           value={format}
           onChange={(e) => setFormat(e.target.value)}
           className="input"
